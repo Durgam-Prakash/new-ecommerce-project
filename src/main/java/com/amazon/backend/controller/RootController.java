@@ -3,6 +3,7 @@ package com.amazon.backend.controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
 public class RootController {
 	
@@ -15,5 +16,11 @@ public class RootController {
 	public String login() {
 		return "welcome login page";
 	}
+	
+	@GetMapping("/message")
+	public String getMessage() {
+		return "greetings";
+	}
+	
 
 }
