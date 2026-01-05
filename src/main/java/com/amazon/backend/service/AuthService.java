@@ -3,10 +3,13 @@ package com.amazon.backend.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.amazon.backend.constants.AuthConstants;
 import com.amazon.backend.entity.User;
+import com.amazon.backend.enums.UserRole;
 import com.amazon.backend.exception.UserAlreadyExistsException;
 import com.amazon.backend.pojo.SignupData;
 import com.amazon.backend.repository.UserRepository;
@@ -16,6 +19,9 @@ public class AuthService {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	
+	public PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 	
 	public User signup(SignupData signupData) {
 		
@@ -30,9 +36,9 @@ public class AuthService {
 		user.setFirstName(signupData.getFirstName());
 		user.setLastName(signupData.getLastName());
 		user.setEmail(signupData.getEmail());
-		user.setPasswordHash(signupData.getPassword());
+		user.setPasswordHash(passwordEncoder.encode(signupData.getPassword()));
 		user.setPhoneNumber(signupData.getPhoneNumber());
-		
+		user.setRole(UserRole.BUYER);
 		User saveUser = userRepository.save(user);
 		return saveUser;
 	}
