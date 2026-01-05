@@ -23,6 +23,9 @@ public class AuthConstants {
 	public static final String USER_ALREADY_EXISTS="User Already Exists...! Please Login";
 	public static final String SUCCESS_ACCOUNT_CREATED="Account created succesfully";
 
+	
+	
+
 
 
 }

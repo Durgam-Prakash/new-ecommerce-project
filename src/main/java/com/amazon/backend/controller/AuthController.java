@@ -1,6 +1,9 @@
 package com.amazon.backend.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,12 +29,20 @@ public class AuthController {
 	
 	@PostMapping("/signup")
 	public ResponseEntity<ApiResponse<User>> createAccount(@Valid @RequestBody SignupData signupData){
-		User signup = authService.signup(signupData);
+		Map<String, Object> data = authService.signup(signupData);
 		
-		ApiResponse<User> apiResponse = new ApiResponse<>(true,AuthConstants.SUCCESS_ACCOUNT_CREATED,signup);
+		ApiResponse<User> apiResponse = new ApiResponse<>(true,AuthConstants.SUCCESS_ACCOUNT_CREATED,(User)data.get("userData"));
 		
 		
-		return new ResponseEntity<>(apiResponse,HttpStatus.ACCEPTED);
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.add("Authorization", "Bearer " + data.get("token").toString());
+		
+		return  ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(apiResponse);
 		
 	}
+	
+	
+	
+	
+	
 }
