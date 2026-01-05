@@ -24,8 +24,12 @@ public class AuthConstants {
 	public static final String SUCCESS_ACCOUNT_CREATED="Account created succesfully";
 
 	
-	
+	public static final String USER_NOT_FOUND="User email not register with us...! please Register";
+	public static final String SUCCESS_LOGIN="You have Loggedin succesfully";
 
+	
+	
+	public static final String PASSWORD_INVALID="Password is not matching or password is invalid";
 
 
 }

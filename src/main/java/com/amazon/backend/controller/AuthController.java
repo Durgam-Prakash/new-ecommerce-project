@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.amazon.backend.constants.AuthConstants;
 import com.amazon.backend.entity.User;
 import com.amazon.backend.payload.ApiResponse;
+import com.amazon.backend.pojo.LoginData;
 import com.amazon.backend.pojo.SignupData;
 import com.amazon.backend.service.AuthService;
 
@@ -39,6 +40,21 @@ public class AuthController {
 		
 		return  ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(apiResponse);
 		
+	}
+	
+	
+	@PostMapping("/login")
+	public ResponseEntity<?> login(@Valid @RequestBody LoginData loginData) {
+		
+		Map<String, Object> login = authService.login(loginData);
+		
+		
+		ApiResponse<User> apiResponse = new ApiResponse<>(true,AuthConstants.SUCCESS_LOGIN,(User)login.get("userData"));
+		
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.add("Authorozation","Bearer " + login.get("token").toString());
+		return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(apiResponse);
+				
 	}
 	
 	

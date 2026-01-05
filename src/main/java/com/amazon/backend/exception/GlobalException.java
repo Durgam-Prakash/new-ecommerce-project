@@ -40,5 +40,23 @@ public class GlobalException {
 			return new ResponseEntity<>(response,HttpStatus.INTERNAL_SERVER_ERROR);
 			
 		}
+		
+		
+		@ExceptionHandler(UserNotFoundException.class)
+		public ResponseEntity<ApiResponse<String>> handleUserNotFoundException(UserNotFoundException ex){
+			
+			ApiResponse<String> response = new ApiResponse<>(false,ExceptionConstants.UNABLE_TO_PROCESS_REUQEST,ex.getMessage());
+			return new ResponseEntity<>(response,HttpStatus.NOT_FOUND);
+			
+		}
+		
+		
+		@ExceptionHandler(InvalidPasswordException.class)
+		public ResponseEntity<ApiResponse<String>> handleInvalidPasswordException(InvalidPasswordException ex){
+			
+			ApiResponse<String> response = new ApiResponse<>(false,ExceptionConstants.UNABLE_TO_PROCESS_REUQEST,ex.getMessage());
+			return new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
+			
+		}
 
 }
