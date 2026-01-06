@@ -18,7 +18,10 @@ public class AuthConstants {
 
 	public static final String ERROR_PHONE_NUMBER_REQUIRED="Phone number is required";
 	
-	
+	public static final String ERROR_OTP_REQUIRED="OTP is required";
+	public static final String ERROR_OTP_MIN_6_CHARACTERS="OTP should minimum 6 digits";
+
+
 	
 	public static final String USER_ALREADY_EXISTS="User Already Exists...! Please Login";
 	public static final String SUCCESS_ACCOUNT_CREATED="Account created succesfully";
@@ -32,4 +35,9 @@ public class AuthConstants {
 	public static final String PASSWORD_INVALID="Password is not matching or password is invalid";
 
 	public static final String SUCCESS_OTP_SENT_TO_EMAIL="Otp send to your email";
+	
+	public static final String SUCCESS_PASSWORD_UPDATED="Your password is updated sucessfully...!  Please login";
+	
+	public static final String ERROR_INVALID_OTP="your OTP is invalid....!   Please try again";
+
 }

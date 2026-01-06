@@ -16,6 +16,7 @@ import com.amazon.backend.entity.User;
 import com.amazon.backend.payload.ApiResponse;
 import com.amazon.backend.pojo.ForgotPasswordSendOtp;
 import com.amazon.backend.pojo.LoginData;
+import com.amazon.backend.pojo.PasswordUpdateAfterReset;
 import com.amazon.backend.pojo.SignupData;
 import com.amazon.backend.service.AuthService;
 
@@ -68,6 +69,14 @@ public class AuthController {
 		ApiResponse<String> apiResponse = new ApiResponse<String>(true,AuthConstants.SUCCESS_OTP_SENT_TO_EMAIL,"");
 
 		 return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
+	}
+	
+	
+	@PostMapping("/forgot-password/update-password")
+	public ResponseEntity<?> updatePasswordAfterReset(@Valid @RequestBody PasswordUpdateAfterReset update){
+		authService.passwordUpdateAfterReset(update);
+		ApiResponse<String> apiResponse = new ApiResponse<>(true,AuthConstants.SUCCESS_PASSWORD_UPDATED, "");
+		return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
 	}
 	
 	

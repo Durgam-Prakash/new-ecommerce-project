@@ -12,11 +12,13 @@ import org.springframework.stereotype.Service;
 import com.amazon.backend.constants.AuthConstants;
 import com.amazon.backend.entity.User;
 import com.amazon.backend.enums.UserRole;
+import com.amazon.backend.exception.InvalidOtpForPasswordResetException;
 import com.amazon.backend.exception.InvalidPasswordException;
 import com.amazon.backend.exception.UserAlreadyExistsException;
 import com.amazon.backend.exception.UserNotFoundException;
 import com.amazon.backend.pojo.ForgotPasswordSendOtp;
 import com.amazon.backend.pojo.LoginData;
+import com.amazon.backend.pojo.PasswordUpdateAfterReset;
 import com.amazon.backend.pojo.SignupData;
 import com.amazon.backend.repository.UserRepository;
 import com.amazon.backend.utils.AuthUtility;
@@ -106,6 +108,31 @@ public class AuthService {
 		
 		emailService.sendPlainMail("OTP to rest your password : test email from API", emailBody, "durgamprakash10@gmail.com", user.getEmail());
 		user.setOtp(otp);
+		userRepository.save(user);
+	}
+	
+	
+	
+	public void passwordUpdateAfterReset(PasswordUpdateAfterReset passwordUpdateAfterReset) {
+		
+		Optional<User> dbUserOptional = userRepository.findByEmail(passwordUpdateAfterReset.getEmail());
+		
+		if(dbUserOptional.isEmpty()) {
+			throw new UserNotFoundException(AuthConstants.USER_NOT_FOUND);
+		}
+		
+		
+		User user = dbUserOptional.get();
+		
+		if(user.getOtp() != Integer.parseInt( passwordUpdateAfterReset.getOtp() )) {
+			throw new InvalidOtpForPasswordResetException(AuthConstants.ERROR_INVALID_OTP);
+		}
+		
+		
+		user.setPasswordHash(passwordEncoder.encode(passwordUpdateAfterReset.getPassword()));
+		
+		user.setOtp(0);
+		
 		userRepository.save(user);
 	}
 	
