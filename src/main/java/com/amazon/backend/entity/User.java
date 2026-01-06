@@ -30,6 +30,7 @@ public class User {
 	private String email;
 	private String passwordHash;
 	private String phoneNumber;
+	private Integer otp;
 	private LocalDateTime createdOn =LocalDateTime.now();
 	private LocalDateTime updatedOn =LocalDateTime.now();
 	

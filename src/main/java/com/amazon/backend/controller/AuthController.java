@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.amazon.backend.constants.AuthConstants;
 import com.amazon.backend.entity.User;
 import com.amazon.backend.payload.ApiResponse;
+import com.amazon.backend.pojo.ForgotPasswordSendOtp;
 import com.amazon.backend.pojo.LoginData;
 import com.amazon.backend.pojo.SignupData;
 import com.amazon.backend.service.AuthService;
@@ -55,6 +56,18 @@ public class AuthController {
 		httpHeaders.add("Authorozation","Bearer " + login.get("token").toString());
 		return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(apiResponse);
 				
+	}
+	
+	
+	
+	@PostMapping("/forgot-password/send-otp")
+	public ResponseEntity<?> sendOtp(@Valid @RequestBody ForgotPasswordSendOtp sendOtp){
+		
+		authService.forgotPasswordSendOtp(sendOtp);
+		
+		ApiResponse<String> apiResponse = new ApiResponse<String>(true,AuthConstants.SUCCESS_OTP_SENT_TO_EMAIL,"");
+
+		 return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
 	}
 	
 	

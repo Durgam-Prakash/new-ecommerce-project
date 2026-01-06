@@ -31,5 +31,5 @@ public class AuthConstants {
 	
 	public static final String PASSWORD_INVALID="Password is not matching or password is invalid";
 
-
+	public static final String SUCCESS_OTP_SENT_TO_EMAIL="Otp send to your email";
 }

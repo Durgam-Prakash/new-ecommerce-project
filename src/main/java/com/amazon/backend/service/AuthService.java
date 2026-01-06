@@ -15,9 +15,11 @@ import com.amazon.backend.enums.UserRole;
 import com.amazon.backend.exception.InvalidPasswordException;
 import com.amazon.backend.exception.UserAlreadyExistsException;
 import com.amazon.backend.exception.UserNotFoundException;
+import com.amazon.backend.pojo.ForgotPasswordSendOtp;
 import com.amazon.backend.pojo.LoginData;
 import com.amazon.backend.pojo.SignupData;
 import com.amazon.backend.repository.UserRepository;
+import com.amazon.backend.utils.AuthUtility;
 
 @Service
 public class AuthService {
@@ -27,6 +29,9 @@ public class AuthService {
 
 	@Autowired
 	private JwtService jwtService;
+	
+	@Autowired 
+	private EmailService emailService;
 
 	public PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -82,4 +87,26 @@ public class AuthService {
 		response.put("token", token);
 		return response;
 	}
+	
+	
+	
+	
+	
+	public void forgotPasswordSendOtp(ForgotPasswordSendOtp sendOtp) {
+		
+		Optional<User> dbUserOptional = userRepository.findByEmail(sendOtp.getEmail());
+		
+		if(dbUserOptional.isEmpty()) {
+			throw new UserNotFoundException(AuthConstants.USER_NOT_FOUND);
+		}
+		
+		User user = dbUserOptional.get();
+		int otp = AuthUtility.generateOtp();
+		String emailBody = "Hi" + user.getFirstName() + " " + " " + user.getLastName() + " , " +  "Please use below OTP for reset yo password " + otp + " .  "  + "THANK YOU";
+		
+		emailService.sendPlainMail("OTP to rest your password : test email from API", emailBody, "durgamprakash10@gmail.com", user.getEmail());
+		user.setOtp(otp);
+		userRepository.save(user);
+	}
+	
 }
