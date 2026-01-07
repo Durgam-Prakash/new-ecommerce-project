@@ -39,5 +39,10 @@ public class AuthConstants {
 	public static final String SUCCESS_PASSWORD_UPDATED="Your password is updated sucessfully...!  Please login";
 	
 	public static final String ERROR_INVALID_OTP="your OTP is invalid....!   Please try again";
+	
+	public static final String SEARCHED_PRODUCTS="Your products";
+	
+	public static final String ERROR_PRODUCT_NOT_FOUND="Product is not found or not available";
+
 
 }
