@@ -42,7 +42,10 @@ public class AuthConstants {
 	
 	public static final String SEARCHED_PRODUCTS="Your products";
 	
-	public static final String ERROR_PRODUCT_NOT_FOUND="Product is not found or not available";
+	public static final String ERROR_PRODUCT_NOT_FOUND="Product is not found or not available  ";
+	
+	public static final String SUCCESS_PRODUCT_DETAILS="Product Details Are : ";
+
 
 
 }

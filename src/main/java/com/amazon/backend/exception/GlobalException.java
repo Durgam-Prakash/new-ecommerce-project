@@ -50,6 +50,14 @@ public class GlobalException {
 			
 		}
 		
+		@ExceptionHandler(ProductNotFoundException.class)
+		public ResponseEntity<ApiResponse<String>> handleProductNotFoundException(ProductNotFoundException ex){
+			
+			ApiResponse<String> response = new ApiResponse<>(false,ExceptionConstants.UNABLE_TO_PROCESS_REUQEST,ex.getMessage() +  ex.getProductId());
+			return new ResponseEntity<>(response,HttpStatus.NOT_FOUND);
+			
+		}
+		
 		
 		@ExceptionHandler(InvalidPasswordException.class)
 		public ResponseEntity<ApiResponse<String>> handleInvalidPasswordException(InvalidPasswordException ex){
