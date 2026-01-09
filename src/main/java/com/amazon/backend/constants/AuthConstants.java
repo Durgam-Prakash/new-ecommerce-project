@@ -45,6 +45,8 @@ public class AuthConstants {
 	public static final String ERROR_PRODUCT_NOT_FOUND="Product is not found or not available  ";
 	
 	public static final String SUCCESS_PRODUCT_DETAILS="Product Details Are : ";
+	
+	public static final String SUCCESS_ADDED_TO_CART="Product is added in your cartDetails Are : ";
 
 
 
