@@ -110,4 +110,20 @@ public class CartService {
 		cartItemRepository.save(cartItem);
 		
 	}
+	
+	
+	
+	
+	public void deleteCartItem(int cartItemId) {
+		
+		Optional<CartItem> cartOptional = cartItemRepository.findById(cartItemId);
+		
+		if(cartOptional.isEmpty()) {
+			throw new CartItemNotFoundException(CartConstants.EXCEPTION_CART_ITEM_NOT_FOUND, cartItemId);
+							
+		}
+		
+		CartItem cartItem = cartOptional.get();
+		cartItemRepository.delete(cartItem);
+	}
 }

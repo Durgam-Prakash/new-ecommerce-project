@@ -13,7 +13,7 @@ public class CartConstants {
 	public static final String SUCCESS_API_OK = "OK";
 	public static final String  SUCCESS_API_MESAGE = "item added to the cart successfully ";
 	public static final String  UPDATE_API_MESAGE = "item updated to the cart successfully ";
-	public static final String  DELETE_API_MESAGE = "item deleted to the cart successfully ";
+	public static final String  DELETE_API_MESAGE = "item deleted from the cart successfully ";
 //	public static final String ERROR_API_DATA_QUANTITY = "User id should be greater then zero";
 //	
 //	

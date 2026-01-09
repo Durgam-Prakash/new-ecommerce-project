@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,47 +26,46 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/cart")
 public class CartController {
-	
-	
+
 	@Autowired
 	private CartService cartService;
-	
+
 	@PostMapping("/addToCart")
-	public ResponseEntity<?> addToCart(@Valid @RequestBody AddToCartData addToCartData){
-		
+	public ResponseEntity<?> addToCart(@Valid @RequestBody AddToCartData addToCartData) {
+
 		cartService.addToCart(addToCartData);
-		ApiResponse<String> apiResponse = new ApiResponse<>(true,CartConstants.SUCCESS_API_MESAGE,CartConstants.SUCCESS_API_OK);
+		ApiResponse<String> apiResponse = new ApiResponse<>(true, CartConstants.SUCCESS_API_MESAGE,CartConstants.SUCCESS_API_OK);
 		return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
-		
+
 	}
-	
-	
-	
+
 	@GetMapping("/view/{userId}")
-	public ResponseEntity<?> getCartDetails(@PathVariable int userId){
-		
-		List<CartDto> dataList=  cartService.getCartData(userId);
-		
-		ApiResponse<List<CartDto>> apiResponse = new ApiResponse<>(true, CartConstants.SUCCESS_API_OK, dataList );
+	public ResponseEntity<?> getCartDetails(@PathVariable int userId) {
 
-		
+		List<CartDto> dataList = cartService.getCartData(userId);
+
+		ApiResponse<List<CartDto>> apiResponse = new ApiResponse<>(true, CartConstants.SUCCESS_API_OK, dataList);
+
 		return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
-	} 
-
-	
-	
-	
+	}
 
 	@PutMapping("/update/{cartItemId}")
-	public ResponseEntity<?> updateCart(@PathVariable int cartItemId, @RequestBody UpdateCartData updateCartData){
+	public ResponseEntity<?> updateCart(@PathVariable int cartItemId, @RequestBody UpdateCartData updateCartData) {
 		cartService.updateCart(cartItemId, updateCartData);
-		
-		ApiResponse<?> apiResponse = new ApiResponse<>(true,CartConstants.SUCCESS_API_OK ,CartConstants.UPDATE_API_MESAGE);
-		
+
+		ApiResponse<?> apiResponse = new ApiResponse<>(true, CartConstants.SUCCESS_API_OK,CartConstants.UPDATE_API_MESAGE);
+
 		return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
-		
-	
-		
+
 	}
 	
+	
+	
+	@DeleteMapping("/delete/{cartItemId}")
+	public ResponseEntity<?> deleteCart(@PathVariable int cartItemId){
+		cartService.deleteCartItem(cartItemId);
+		ApiResponse<?> apiResponse = new ApiResponse<>(true,CartConstants.SUCCESS_API_OK,CartConstants.DELETE_API_MESAGE);
+		return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
+	}
+
 }
