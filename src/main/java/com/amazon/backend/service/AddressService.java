@@ -1,13 +1,18 @@
 package com.amazon.backend.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.amazon.backend.constants.AddressConstants;
 import com.amazon.backend.entity.Address;
+import com.amazon.backend.exception.AddressNotFoundException;
 import com.amazon.backend.pojo.AddressAddApiData;
 import com.amazon.backend.repository.AddressRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class AddressService {
@@ -38,5 +43,17 @@ public class AddressService {
 	
 	public List<Address> getAddress(int userId){
 		return addressRepository.findByUserId(userId);
+	}
+	
+	
+	@Transactional
+	public void deleteAddress(int addressId,int userId) {
+		Optional<Address> dbOptional = addressRepository.findByUserIdAndAddressId(addressId, userId);
+		
+		if(dbOptional.isEmpty()) {
+			throw new AddressNotFoundException(AddressConstants.EXCEPTION_ADDRESS_NOT_FOUND,addressId,userId);
+		}
+		
+		addressRepository.deleteById(addressId); 
 	}
 } 
