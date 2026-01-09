@@ -11,8 +11,10 @@ import com.amazon.backend.constants.CartConstants;
 import com.amazon.backend.dto.CartDto;
 import com.amazon.backend.entity.Cart;
 import com.amazon.backend.entity.CartItem;
+import com.amazon.backend.exception.CartItemNotFoundException;
 import com.amazon.backend.exception.EmptyCartException;
 import com.amazon.backend.pojo.AddToCartData;
+import com.amazon.backend.pojo.UpdateCartData;
 import com.amazon.backend.repository.CartItemRepository;
 import com.amazon.backend.repository.CartRepository;
 
@@ -88,6 +90,24 @@ public class CartService {
 		return cartDataList;
 				
 		
+		
+	}
+	
+	
+	
+	
+	public void updateCart(int cartItemId,UpdateCartData updateCartData) {
+		
+		Optional<CartItem> cartOptional = cartItemRepository.findById(cartItemId);
+		
+		if(cartOptional.isEmpty()) {
+			throw new CartItemNotFoundException(CartConstants.EXCEPTION_CART_ITEM_NOT_FOUND,cartItemId);
+		}
+		
+		
+		CartItem cartItem = cartOptional.get();
+		cartItem.setQuantity(updateCartData.getQuantity());
+		cartItemRepository.save(cartItem);
 		
 	}
 }

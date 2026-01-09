@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +17,7 @@ import com.amazon.backend.constants.CartConstants;
 import com.amazon.backend.dto.CartDto;
 import com.amazon.backend.payload.ApiResponse;
 import com.amazon.backend.pojo.AddToCartData;
+import com.amazon.backend.pojo.UpdateCartData;
 import com.amazon.backend.service.CartService;
 
 import jakarta.validation.Valid;
@@ -50,4 +52,20 @@ public class CartController {
 		return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
 	} 
 
+	
+	
+	
+
+	@PutMapping("/update/{cartItemId}")
+	public ResponseEntity<?> updateCart(@PathVariable int cartItemId, @RequestBody UpdateCartData updateCartData){
+		cartService.updateCart(cartItemId, updateCartData);
+		
+		ApiResponse<?> apiResponse = new ApiResponse<>(true,CartConstants.SUCCESS_API_OK ,CartConstants.UPDATE_API_MESAGE);
+		
+		return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
+		
+	
+		
+	}
+	
 }

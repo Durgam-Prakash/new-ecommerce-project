@@ -66,5 +66,13 @@ public class GlobalException {
 			return new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
 			
 		}
+		
+		@ExceptionHandler(CartItemNotFoundException.class)
+		public ResponseEntity<ApiResponse<String>> handleCartItemNotFoundException(CartItemNotFoundException ex){
+			
+			ApiResponse<String> response = new ApiResponse<>(false,ExceptionConstants.UNABLE_TO_PROCESS_REUQEST,ex.getMessage()+ ex.getCartItemId());
+			return new ResponseEntity<>(response,HttpStatus.NOT_FOUND);
+			
+		}
 
 }

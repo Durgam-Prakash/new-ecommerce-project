@@ -18,7 +18,7 @@ public class CartConstants {
 //	
 //	
 	public static final String EXCEPTION_EMPTY_CART = "no items in the cart";
-	public static final String EXCEPTION_CART_ITEM_NOT_FOUND = "No cart item found with the recived id";
+	public static final String EXCEPTION_CART_ITEM_NOT_FOUND = "No cart item found with the recived id :    ";
 //	public static final String ERROR_API_DATA_QUANTITY = "User id should be greater then zero";
 
 }
