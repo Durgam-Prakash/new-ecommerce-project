@@ -2,10 +2,13 @@ package com.amazon.backend.enums;
 
 public enum AddressType {
 	
-	HOME,
-	BILLING,
-	OFFICE,
-	SHIPPING,
-	OTHER
+	Home,
+	Billing,
+	Office,
+	Shipping,
+	Other
 
+	
+	
+	
 }

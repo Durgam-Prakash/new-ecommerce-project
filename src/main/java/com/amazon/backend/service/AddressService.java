@@ -1,5 +1,7 @@
 package com.amazon.backend.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,4 +35,8 @@ public class AddressService {
 		return saveAddress;
 		
 	}
-}
+	
+	public List<Address> getAddress(int userId){
+		return addressRepository.findByUserId(userId);
+	}
+} 

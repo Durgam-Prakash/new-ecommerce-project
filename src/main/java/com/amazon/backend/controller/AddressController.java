@@ -1,8 +1,12 @@
 package com.amazon.backend.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +32,14 @@ public class AddressController {
 		ApiResponse<?> apiResponse = new ApiResponse<>(true,AddressConstants.SUCCESS_API_OK,address);
 		
 		return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
+	}
+	
+	@GetMapping("/{userId}/view")
+	public ResponseEntity<?> getAddress(@PathVariable int userId){
+		List<Address> address = addressService.getAddress(userId);
+		ApiResponse<List<Address>> apiResponse = new ApiResponse<>(true,AddressConstants.SUCCESS_API_OK,address);
+		return ResponseEntity.status(HttpStatus.OK).body(apiResponse); 
+				
 	}
 
 }
