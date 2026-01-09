@@ -17,6 +17,8 @@ public interface CartRepository  extends JpaRepository<Cart, Integer>{
 
 	Optional<Cart> findByUserId(int userId);
 	
+	Optional<Cart> findByCartIdAndUserId(int cartId, int userId);
+	
 	@Procedure(procedureName = "sp_cart_view_based_on_cart_id")
 	List<Object[]> getCartData(@Param("in_cart_id") int cartId);
 	
