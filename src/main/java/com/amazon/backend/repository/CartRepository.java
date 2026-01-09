@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 
 import com.amazon.backend.entity.Cart;
 
+
+
 @Repository
 public interface CartRepository  extends JpaRepository<Cart, Integer>{
 
@@ -17,5 +19,10 @@ public interface CartRepository  extends JpaRepository<Cart, Integer>{
 	
 	@Procedure(procedureName = "sp_cart_view_based_on_cart_id")
 	List<Object[]> getCartData(@Param("in_cart_id") int cartId);
+	
+
+	
+	@Procedure(procedureName = "sp_cart_reminders")
+	List<Object[]> getCartReminders();
 	
 }
